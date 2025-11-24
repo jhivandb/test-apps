@@ -1,3 +1,7 @@
+# +required The configuration file schema version
+schemaVersion: 1.2
+
+
 dependencies:
     connectionReferences:
     - name: Testing
