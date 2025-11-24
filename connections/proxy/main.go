@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -12,7 +13,7 @@ func main() {
 	choreoapikey := os.Getenv("CHOREO_TESTING_CHOREOAPIKEY")
 
 	if serviceurl == "" {
-		log.Fatal("NO URL SET")
+		fmt.Println("NO URL SET")
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
