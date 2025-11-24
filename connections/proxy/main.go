@@ -24,7 +24,7 @@ func main() {
 			return
 		}
 		defer response.Body.Close()
-
+		fmt.Println("Request Recieved")
 		w.WriteHeader(response.StatusCode)
 		r.Header.Add("Choreo-API-Key", choreoapikey)
 
