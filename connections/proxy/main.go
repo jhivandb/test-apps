@@ -8,14 +8,15 @@ import (
 )
 
 func main() {
-	url := os.Getenv("REQUEST_URL")
+	serviceurl := os.Getenv("CHOREO_TESTING_SERVICEURL")
+	choreoapikey := os.Getenv("CHOREO_TESTING_CHOREOAPIKEY")
 
-	if url == "" {
+	if serviceurl == "" {
 		log.Fatal("NO URL SET")
 	}
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		response, err := http.Get(url)
+		response, err := http.Get(serviceurl)
 
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusBadGateway)
@@ -24,6 +25,7 @@ func main() {
 		defer response.Body.Close()
 
 		w.WriteHeader(response.StatusCode)
+		r.Header.Add("Choreo-API-Key", choreoapikey)
 
 		body, err := io.ReadAll(response.Body)
 
@@ -35,7 +37,7 @@ func main() {
 		w.Write(body)
 	})
 
-	log.Printf("Starting proxy server on :8080, forwarding to %s", url)
+	log.Printf("Starting proxy server on :8080, forwarding to %s", serviceurl)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal(err)
 	}
