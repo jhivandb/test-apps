@@ -1,0 +1,4 @@
+dependencies:
+    connectionReferences:
+    - name: Testing
+      resourceRef: service:/connectioncheck/status-500-log-each/v1/5c69c/PROJECT
